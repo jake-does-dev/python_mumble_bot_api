@@ -3,6 +3,7 @@ from apispec.ext.marshmallow import MarshmallowPlugin
 from apispec_webframeworks.flask import FlaskPlugin
 from bson import ObjectId
 from flask import Flask
+from flask_cors import CORS, cross_origin
 from marshmallow import Schema, fields
 
 from api import mongodb
@@ -32,6 +33,8 @@ spec.components.security_scheme("ApiKeyAuth", api_key_scheme)
 
 # Optional Flask support
 app = Flask(__name__)
+cors = CORS(app)
+app.config['CORS_HEADERS'] = 'Content-Type'
 
 db = mongodb.MongoInterface()
 db.connect()
